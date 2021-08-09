@@ -1,11 +1,26 @@
-	menu.new_checkbox("lua", "A", "my_checkbox")
-	menu.new_colorpicker("lua", "A", "my_colorpicker")
-  menu.new_keybind("lua", "A", "my_keybind_name", "my_key_bind_id")
-	menu.new_singleselect("lua", "A", "single", { "0", "1", "2" })
-	menu.new_multiselect("lua", "A", "multi", { "0", "1", "2" })
-	menu.new_slider_float("lua", "A", "slider float", 0, 0, 100)
-	menu.new_slider_int("lua", "A", "slider int", 0, 0, 100)
+menu.new_checkbox("lua", "tabscripting", "mycb", "var_cb")
+menu.new_colorpicker("lua", "tabscripting", "my_colorpicker" "var_colorpicker")
+menu.new_keybind("lua", "tabscripting", "my_element" "my_element_var")
+menu.new_singleselect("lua", "tabscripting", "my_element" "my_element_var", { "0", "1", "2" })
+menu.new_multiselect("lua", "tabscripting", "my_element" "my_element_var", { "0", "1", "2" })
+menu.new_slider_float("lua", "tabscripting", "my_element" "my_element_var", 0, 0, 100)
+menu.new_slider_int("lua", "tabscripting", "my_element" "my_element_var", 0, 0, 100)
   menu.is_bind_active("key name") (you can get key names by navegating at your config.ini copying the string)
 
   config.get("element name")
   config.set("element name", bool/float/int/color)
+
+example: 
+
+local my_cb = menu.new_checkbox("lua", "tabscripting", "mycb", "var_cb")
+
+function run()
+	if (config.get("var_cb")) then 
+		print("1")
+		else 
+		print("0")	
+	end
+
+end 
+
+cheat.set_event_callback("draw", run)

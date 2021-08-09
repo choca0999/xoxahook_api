@@ -1,6 +1,6 @@
 cheat.set_event_callback("draw", function()
 	local x, y = engine.get_screen_size()
-	render.draw_text(x / 2, y / 2, 255, 255, 255, 255, "prediction.lua")
+	render.text(x / 2, y / 2, Color.new(255, 255, 255, 255), "prediction.lua")
 end)
 
 cheat.set_event_callback("createmove", function()

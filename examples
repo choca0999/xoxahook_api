@@ -10,3 +10,13 @@ cheat.set_event_callback("createmove", function()
 		return 
 	end
 end)
+local function on_draw()
+
+    if menu.is_bind_active("thirdperson_key") then
+	 print("active")
+    else 
+         print("disabled")
+    end
+
+end
+cheat.set_event_callback("draw", on_draw)

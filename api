@@ -1,0 +1,71 @@
+**Color: **
+Color.new( r, g, b, a )
+
+**Render: **
+*render.text(x, y, "Hello World!", Color.new(r, g, b, a) )
+render.rect(x, y, w, h, Color.new(r, g, b, a) )
+render.draw_rect_filled(x, y, w, h, Color.new(r, g, b, a) )
+render.draw_rect_filled_fade(x, y, w, h, Color.new(r, g, b, a), alpha1, alpha2)
+render.draw_line(x, y, x1,y1h, Color.new(r, g, b, a) )
+render.draw_gradient_horizontal(x, y, w, h, Color.new(r, g, b, a), Color.new(r1, g1, b1, a1) )
+render.draw_gradient_vertical(x, y, w, h, Color.new(r, g, b, a), Color.new(r1, g1, b1, a1) )
+render.render_get_text_size("fontname", "text")* 
+
+**Crypto :**
+*crypto.base64.encode( string ) 
+crypto.base64.decode( string )* 
+
+**Engine: **
+*local m_connected = engine.IsConnected()
+local x, y = engine.get_screen_size()
+engine.execute_client_cmd(string) example: 
+engine.execute_client_cmd("say test")*
+engine.GetLocalPlayer()
+**Cvar: **
+*cvar.find_var(string)
+cvar.get_float(var)
+cvar.get_int(var)
+cvar.set_float(var)
+cvar.set_int(var)* 
+
+**Menu:**
+*menu.new_checkbox("tab", "container", "label", boolean)
+menu.new_slider_int("tab", "container", "label", default_value_int, min, max ,(optional args [ draw hp+1 boolean, format ] ) )
+menu.new_slider_float("tab", "container", "label", default_value_int, min, max, (optional args [ format ] ) )
+menu.new_keybind("tab", "container", "label")* 
+
+**Callbacks: ** 
+*cheat.set_event_callback("callback name", function)
+
+callbacks names list:
+
+- createmove ( pass 2 optional arguments : 1st - sendpacket 2nd - cmd)
+- draw 
+- prediction
+- tick
+- movement*
+
+**DebugOverlay:**
+*void add_line_overlay(vector, vector, r, g, b, a, nodepth, duration) 
+text_overlay(vector, line_offset, duration, r, g, b, a, txt) 
+capsule_overlay(vector, vector, pill, r, g, b, a, duration, unk, occulude) *
+    
+**Globals:**
+example : globals.realtime 
+realtime
+framecount
+absoluteframetime
+curtime
+frametime
+maxclients
+tickcount
+tickinterval 
+
+**Utils: **
+utils.world_to_screen(vector)
+utils.get_player_data(player) returns player : name,userid,guid 
+
+**Entity: **
+entlist.get_client_entity(idx)
+entlist.get_client_entity_from_handle(ent)
+entlist.get_highest_entity_index()

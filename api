@@ -2,7 +2,8 @@
 Color.new( r, g, b, a )
 
 **Render: **
-*render.text(x, y, "Hello World!", Color.new(r, g, b, a) )
+
+render.text(x, y, Color.new(1,1,1,1), "XOXAHOOK" )
 render.rect(x, y, w, h, Color.new(r, g, b, a) )
 render.draw_rect_filled(x, y, w, h, Color.new(r, g, b, a) )
 render.draw_rect_filled_fade(x, y, w, h, Color.new(r, g, b, a), alpha1, alpha2)

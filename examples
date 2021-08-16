@@ -1,22 +1,111 @@
-cheat.set_event_callback("draw", function()
-	local x, y = engine.get_screen_size()
-	render.text(x / 2, y / 2, Color.new(255, 255, 255, 255), "prediction.lua")
-end)
+--setup our vars 
+menu.new_keybind("lua", "tabscripting", "Flip Desync side", "menu_key_switch_side") -- ( tab, container, name our element, register our element id )
+menu.new_checkbox("lua", "tabscripting", "Render text indicators", "menu_cb_indicators") -- ( tab, container, name our element, register our element id )
+menu.new_colorpicker("lua", "tabscripting", "Text color", "menu_accent_color" )
+menu.new_checkbox("lua", "tabscripting", "LBY indicator", "menu_cb_lby") -- ( tab, container, name our element, register our element id )
+local cheat_data_id = { "antiaim_yaw", "antiaim_body_yaw", "menu_accent_color", "menu_cb_lby" }
+local data_id = { "menu_cb_indicators", "menu_key_switch_side" }
+local data_bind_id = { "doubletap_key", "force_baim", "override_dmg", "misc_autopeek_key", "misc_fakelatency" }
+local data_strings = { "doubletap", "force baim", "override dmg", "auto peek", "fake ping", "predi", "ction.lua" }
 
-cheat.set_event_callback("createmove", function()
-	local local_index = engine.GetLocalPlayer()
-	local local_player = entlist.get_client_entity(local_index)
-	if (local_player == nil) then
-		return 
-	end
-end)
-local function on_draw()
+--Ok
 
-    if menu.is_bind_active("thirdperson_key") then
-	 print("active")
-    else 
-         print("disabled")
+-- run our entry 
+local function main()
+    if menu.is_bind_active(data_id[2]) then -- grab our element id
+        config.set(cheat_data_id[1], 1) -- set yaw to 90
+        config.set(cheat_data_id[2], 1) -- set body yaw to 180
+    else
+        config.set(cheat_data_id[1], 1) -- set yaw to 90
+        config.set(cheat_data_id[2], 3) -- set body yaw to -90 -> now we archived opposite 
+    end
+end
+local m_font = render.create_font("Tahoma", 12, 900, 0.1, 0)
+local m_innactive_font = render.create_font("Verdana", 12, 900, 0.2, 0)
+
+function draw_indicators()
+    local m_accent_r, m_accent_g ,m_accent_b ,m_accent_a = config.get(cheat_data_id[3]) 
+
+    local data_colors = { 
+        Color.new(m_accent_r, m_accent_g, m_accent_b, m_accent_a),
+        Color.new(220, 220, 220, 25),       
+        Color.new(150, 150, 150, 25),
+
+        Color.new(0, 0, 0 , 255),
+        Color.new(100, 0, 0 , 100),
+        Color.new(0, 125, 0 , 100)
+
+    }    
+    if ( not config.get(data_id[1]) or not engine.IsConnected()) then return end 
+
+    local x , y = engine.get_screen_size()
+    local aditional_yaw = 0
+    local delta_time = globals.body_delta()
+
+    local function active_id(string, data_colors, boolean)
+        if (boolean) then
+            render.text(m_font, x / 2 - 19, y / 2 + 35 + aditional_yaw, data_colors, string)
+            aditional_yaw = aditional_yaw + 10
+        else 
+            render.text(m_innactive_font, x / 2 - 19, y / 2 + 35 + aditional_yaw, data_colors, string)
+            aditional_yaw = aditional_yaw + 10
+        end
     end
 
+    if menu.is_bind_active(data_bind_id[1]) then
+        active_id(data_strings[1], data_colors[1], true)
+    else 
+        active_id(data_strings[1], data_colors[3], false)
+    end
+    if menu.is_bind_active(data_bind_id[2]) then
+        active_id(data_strings[2], data_colors[1], true)
+    else 
+        active_id(data_strings[2], data_colors[3], false)
+    end
+    if menu.is_bind_active(data_bind_id[3]) then
+        active_id(data_strings[3], data_colors[1], true)
+    else 
+        active_id(data_strings[3], data_colors[3], false)
+    end
+    if menu.is_bind_active(data_bind_id[4]) then
+        active_id(data_strings[4], data_colors[1], true)
+    else 
+        active_id(data_strings[4], data_colors[3], false)
+    end
+    if menu.is_bind_active(data_bind_id[5]) then
+        active_id(data_strings[5], data_colors[1], true)
+    else 
+        active_id(data_strings[5], data_colors[3], false)
+    end
+
+    if ( menu.is_bind_active(data_id[2])) then 
+        render.text(m_font, x / 2 - 26.5 , y / 2 + 15, data_colors[1], data_strings[6])
+        render.text(m_font, x / 2 - 0, y / 2 + 15, data_colors[2], data_strings[7])
+    else   
+        render.text(m_font, x / 2 - 26.5, y / 2 + 15, data_colors[2], data_strings[6])
+        render.text(m_font, x / 2 - 0, y / 2 + 15, data_colors[1], data_strings[7])
+    end 
+
+
+    if ( config.get(cheat_data_id[4]) ) then 
+        if ( delta_time > 35 ) then 
+            render.draw_gradient_horizontal(x / 2 - 30, y / 2 + 30, 36, 3, data_colors[4], data_colors[6] ) 
+            render.draw_gradient_horizontal(x / 2 + 5, y / 2 + 30, 36, 3, data_colors[6], data_colors[4] )
+        else 
+            render.draw_gradient_horizontal(x / 2 - 30, y / 2 + 30, 36, 3, data_colors[4], data_colors[5])
+            render.draw_gradient_horizontal(x / 2 + 5, y / 2 + 30, 36, 3, data_colors[5], data_colors[4] ) 
+        end
+    end
 end
-cheat.set_event_callback("draw", on_draw)
+
+-- register our callbacks 
+function pred_hook()
+    main()
+end 
+function draw_hook()
+    draw_indicators()
+end 
+
+cheat.set_event_callback("draw", draw_hook) -- register our callback
+cheat.set_event_callback("prediction", pred_hook) -- register our callback
+--always use prediction for anti aim stuff etc 

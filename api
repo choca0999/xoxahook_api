@@ -1,8 +1,9 @@
-**Color: **
+Color:
 Color.new( r, g, b, a )
 
-**Render: **
+Render:
 
+render.create_font("windows font name", size, w, blur(float), flags(int))
 render.text(x, y, Color.new(1,1,1,1), "XOXAHOOK" )
 render.rect(x, y, w, h, Color.new(r, g, b, a) )
 render.draw_rect_filled(x, y, w, h, Color.new(r, g, b, a) )
@@ -12,11 +13,11 @@ render.draw_gradient_horizontal(x, y, w, h, Color.new(r, g, b, a), Color.new(r1,
 render.draw_gradient_vertical(x, y, w, h, Color.new(r, g, b, a), Color.new(r1, g1, b1, a1) )
 render.render_get_text_size("fontname", "text")* 
 
-**Crypto :**
-*crypto.base64.encode( string ) 
+Crypto :
+crypto.base64.encode( string ) 
 crypto.base64.decode( string )* 
 
-**Engine: **
+Engine: 
 *local m_connected = engine.IsConnected()
 local x, y = engine.get_screen_size()
 engine.execute_client_cmd(string) example: 
@@ -33,6 +34,7 @@ cvar.set_int(var)*
 *menu.new_checkbox("tab", "container", "label", boolean)
 menu.new_slider_int("tab", "container", "label", default_value_int, min, max ,(optional args [ draw hp+1 boolean, format ] ) )
 menu.new_slider_float("tab", "container", "label", default_value_int, min, max, (optional args [ format ] ) )
+menu.new_colorpicker("lua", "tabscripting", "Text color", "menu_accent_color" )
 menu.new_keybind("tab", "container", "label")* 
 
 **Callbacks: ** 
@@ -61,6 +63,7 @@ frametime
 maxclients
 tickcount
 tickinterval 
+body_delta
 
 **Utils: **
 utils.world_to_screen(vector)
